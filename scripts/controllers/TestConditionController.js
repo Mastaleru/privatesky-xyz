@@ -1,4 +1,4 @@
-import BindableController from "./base-controllers/BindableController.js";
+import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
 
 const model = {
     gdpr: 0,
@@ -13,7 +13,7 @@ const model = {
     }
 };
 
-export default class TestConditionController extends BindableController {
+export default class TestConditionController extends ContainerController {
     constructor(element) {
         super(element);
         this.model = this.setModel(JSON.parse(JSON.stringify(model)));
@@ -46,7 +46,7 @@ export default class TestConditionController extends BindableController {
         this.on('validate-email', (e) => {
             e.preventDefault();
             e.stopImmediatePropagation();
-            const elements = this._element.getElementsByClassName('alert');
+            const elements = this.element.getElementsByClassName('alert');
             for (let el of elements) {
                 el.classList.remove('d-none');
             }

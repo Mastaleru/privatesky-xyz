@@ -1,4 +1,4 @@
-import BindableController from "./base-controllers/BindableController.js";
+import ContainerController from "../../cardinal/controllers/base-controllers/ContainerController.js";
 
 const model = {
     entities: [{
@@ -109,7 +109,7 @@ const model = {
     }
 }
 
-export default class TestFormForEachController extends BindableController {
+export default class TestFormForEachController extends ContainerController {
     constructor(element) {
         super(element);
         this.model = this.setModel(JSON.parse(JSON.stringify(model)));

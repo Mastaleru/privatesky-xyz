@@ -1,0 +1,110 @@
+<psk-page title="How to create a SSApp">
+    <psk-toc title="Table of contents"></psk-toc>
+
+    <psk-description title="Summary">
+        <p>This guide will provide the necessary information on how to create and run a SSApp.</p>
+    </psk-description>
+
+    <psk-chapter title="Prerequisites">
+        <p>In order to get started you need to install the <a href="https://github.com/PrivateSky/web-wallet" target="_blank">web-wallet</a> bundle by following the steps provided on the <psk-link page="quick start/installation">Setup page</psk-link> (Setup SSApps section).</p>
+
+        <p><strong>web-wallet</strong> bundles all the necessary dependencies for building and running SSApps in a single package.</p>
+    </psk-chapter>
+
+    <psk-chapter title="web-wallet architecture">
+        <psk-chapter title="Core components">
+            <p>The <strong>web-wallet</strong> bundle contains the following core components required for building and running a Self Sovereign Application:</p>
+
+            <ul>
+                <li>Octopus task runner</li>
+                <li>PrivateSky local installation</li>
+                <li>Web Server</li>
+                <li>Wallet template</li>
+                <li>User Profile demo application</li>
+                <li>SSApp application loader</li>
+            </ul>
+
+            <p><strong>Octopus</strong> is the first tool installed by the web-wallet and it is used to further fetch and build the rest of the dependencies. For more information on Octopus read the <psk-link page="Tools/Octopus">dedicated page</psk-link> in the documentation.</p>
+
+            <p><strong>PrivateSky</strong> provides the VirtualMQ service and the javascript runtime bundles required for a SSApp to interact with EDFS and PrivateSky nodes</p>
+
+            <p>The <strong>web server</strong> functionality is provided by VirtualMQ which is configured to serve static files from the <code>web-server</code> directory inside the <strong>web-wallet</strong> installation. Besides serving static files, the server exposes the Brick Storage API required to store data to EDFS.</p>
+
+            <p>The <strong>wallet template</strong> installed by <strong>web-wallet</strong> is a plain customisable SSApp which once loaded will display a menu with  all the SSApp applications contained in this <code>web-wallet</code> installation. Through this app you will be able to access your newly created SSApp.</p>
+
+            <p>The <strong>SSApp application loader</strong> is the first thing you'll see after running the <code>web-wallet</code> web server and accessing <code>http://localhost:8080/secure-channels/loader</code>. It is a basic web application which allows creation and loading of wallets based on the <em>menu wallet</em> template. The SSApp loader registers a service worker responsible with loading the built SSApps from the Brick Storage.</p>
+        </psk-chapter>
+    </psk-chapter>
+
+    <psk-chapter title="SSApp Tutorial">
+        <psk-highlight type-of-highlight="example">If you are using a Windows operating system you will need to adapt some bash commands shown in this tutorial in order to execute them.</psk-highlight>
+        <p>Start with creating a folder inside <strong>web-wallet</strong> named after your application. For the purpose of this tutorial we will create a basic "To Do list" application.</p>
+        <psk-code>
+            cd web-wallet
+            mkdir todo-app
+        </psk-code>
+
+        <p>A typical SSApp will have the following structure:
+            <ul>
+                <li>bin/</li>
+                <li>code/</li>
+                <li>octopus.json</li>
+                <li>package.json</li>
+            </ul>
+        </p>
+        <p>The <code>bin</code> folder contains executable scripts and for this SSApp to be compatible with <strong>web-wallet</strong> a <code>build.js</code> script is required. For now go ahead and copy the <code>build.js</code> script from <code>web-wallet/profile-app/bin</code>
+        </p>
+        <psk-code>
+            mkdir -p todo-app/{bin,code}
+            cp profile-app/bin/build.js todo-app/bin
+        </psk-code>
+
+        <p>This build script will create an empty Brick Archive, copy the application's code from the <code>code</code> folder into the BAR and write the BAR's SEED into a file in the root of the application's directory. This seed file will be later read by the SSApp loader in order to load the application.</p>
+
+        <p>The <code>code</code> folder will contain the application source code files (html, javacript &amp; css files).</p>
+
+        <p>Generate a new <code>package.json</code> file using <code>npm init</code> or copy and paste the following example and add it inside the application folder:</p>
+        <psk-code language="javascript">
+            {
+                "name": "todo-app",
+                "version": "1.0.0",
+                "description": "To do list SSApp",
+                "main": "index.js",
+                "scripts": {
+                    "prebuild": "node ./node_modules/octopus/scripts/run",
+                    "build": "node ./bin/build",
+                    "test": "echo \"Error: no test specified\" && exit 1"
+                },
+                "dependencies": {
+                    "octopus": "git+https://github.com/PrivateSky/octopus.git"
+                },
+                "keywords": [
+                    "ssapp"
+                ],
+                "author": "",
+                "license": "MIT"
+            }
+        </psk-code>
+
+        <p>As you can see in the file above, the only required dependency is the <strong>Octopus</strong> package, this will help with building the application. You are free to add as many dependencies as you want in order todevelop your application.</p>
+
+        <p>Next you'll need to copy the <code>octopus.json</code> file from the <code>profile-app</code> folder to your application folder:</p>
+        <psk-code>
+            # go back to the web-wallet folder
+            cd ../
+
+            # copy the octopus.json file from profile app
+            cp profile-app/octopus.json todo-app/
+            cd todo-app
+        </psk-code>
+
+        <p>The <code>octopus.json</code> file contains actions executed by Octopus that will copy the runtime javascript bundles from PrivateSky into our new application into the <code>code</code> folder.</p>
+
+        <p>Next we'll add the application source code files.</p>
+    </psk-chapter>
+
+    <psk-chapter title="SSApp development workflow">
+    </psk-chapter>
+
+
+</psk-page>

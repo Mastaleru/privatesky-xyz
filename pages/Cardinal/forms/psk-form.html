@@ -1,0 +1,87 @@
+<psk-page title="Psk-Form Component">
+
+    <psk-toc title="Table of contents">
+    </psk-toc>
+
+    <psk-description>
+        <p>Psk-form component is a wrapper over
+            <psk-link page="web-components/container">psk-container</psk-link>, so the functionalities available in <code>psk-container</code> are also in <code>psk-form</code>.</p>
+        <p>The purpose of the component is to create an user form.</p>
+        <p>The form submition will be handled by the controller attached via <code>controller-name</code> attribute. Also, the model for the form will be defined in the same controller.</p>
+        <p>At the bottom of the page stands a minimal example of using the component with its attributes. More examples can be found within
+            <psk-link page="forms/using-forms">Using forms</psk-link> page.</p>
+    </psk-description>
+
+    <psk-property-descriptor title="Supported properties">
+        <psk-form data-define-props="true">
+        </psk-form>
+    </psk-property-descriptor>
+
+    <psk-chapter title="HTML Children">
+        <p>As HTML children, any component can be rendered inside.</p>
+    </psk-chapter>
+
+    <psk-example title="Usage examples">
+        <psk-example title="With defined actions -Source Code">
+            <psk-code language="markup">
+                <psk-form controller-name="TestFormController" form-actions="submit, reset-form">
+                    <psk-form-row layout="xs=[12,12,12] m=[6,6,6] l=[12,12,12] xl=[4,4,4]">
+                        <psk-label label="Personal information"></psk-label>
+                    </psk-form-row>
+                    <psk-form-row layout="xs=[12,12,12] m=[6,6,6] l=[12,12,12] xl=[4,4,4]">
+                        <psk-text-input label="Name"> </psk-text-input>
+                        <psk-email-input label="Email"></psk-email-input>
+                        <psk-number-input label="Age"></psk-number-input>
+                    </psk-form-row>
+                </psk-form>
+            </psk-code>
+        </psk-example>
+
+        <psk-example title="With defined actions - Live Example">
+            <psk-form controller-name="TestFormController" form-actions="submit, reset-form">
+                <psk-form-row layout="xs=[12,12,12] m=[6,6,6] l=[12,12,12] xl=[4,4,4]">
+                    <psk-label label="Personal information"></psk-label>
+                </psk-form-row>
+                <psk-form-row layout="xs=[12,12,12] m=[6,6,6] l=[12,12,12] xl=[4,4,4]">
+                    <psk-text-input label="Name"> </psk-text-input>
+                    <psk-email-input label="Email"></psk-email-input>
+                    <psk-number-input label="Age"></psk-number-input>
+                </psk-form-row>
+            </psk-form>
+        </psk-example>
+
+        <psk-example title="With psk-button component - Source Code">
+            <psk-code language="markup">
+                <psk-form controller-name="TestFormController">
+                    <psk-form-row layout="xs=[12,12,12] m=[6,6,6] l=[12,12,12] xl=[4,4,4]">
+                        <psk-label label="Personal information"></psk-label>
+                    </psk-form-row>
+                    <psk-form-row layout="xs=[12,12,12] m=[6,6,6] l=[12,12,12] xl=[4,4,4]">
+                        <psk-text-input label="Name"> </psk-text-input>
+                        <psk-email-input label="Email"></psk-email-input>
+                        <psk-number-input label="Age"></psk-number-input>
+                    </psk-form-row>
+                    <psk-form-row layout="xs=[6] m=[6] l=[6] xl=[6]">
+                        <psk-button label="Custom Submit" event-name="custom-submit"></psk-button>
+                    </psk-form-row>
+                </psk-form>
+            </psk-code>
+        </psk-example>
+
+        <psk-example title="With psk-button component - Live Example">
+            <psk-form controller-name="TestFormController">
+                <psk-form-row layout="xs=[12,12,12] m=[6,6,6] l=[12,12,12] xl=[4,4,4]">
+                    <psk-label label="Personal information"></psk-label>
+                </psk-form-row>
+                <psk-form-row layout="xs=[12,12,12] m=[6,6,6] l=[12,12,12] xl=[4,4,4]">
+                    <psk-text-input label="Name"> </psk-text-input>
+                    <psk-email-input label="Email"></psk-email-input>
+                    <psk-number-input label="Age"></psk-number-input>
+                </psk-form-row>
+                <psk-form-row layout="xs=[6] m=[6] l=[6] xl=[6]">
+                    <psk-button label="Custom Submit" event-name="custom-submit"></psk-button>
+                </psk-form-row>
+            </psk-form>
+        </psk-example>
+    </psk-example>
+</psk-page>
